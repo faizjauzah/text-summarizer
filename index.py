@@ -6,6 +6,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from heapq import nlargest
 import nltk
+from PyPDF2 import PdfReader
+import docx
 
 # --- NLTK Data Download and Verification ---
 # This function is cached to run only once. It attempts to download the necessary
@@ -39,6 +41,18 @@ def setup_nltk():
 
 # Run the setup function when the app starts.
 setup_nltk()
+
+def extract_text_from_pdf(file):
+    reader = PdfReader(file)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text() or ""
+    return text
+
+def extract_text_from_docx(file):
+    doc = docx.Document(file)
+    text = "\n".join([para.text for para in doc.paragraphs])
+    return text
 
 
 def summarize_text(text, num_sentences):
@@ -140,8 +154,24 @@ This app uses an extractive summarization technique to create a summary of your 
 Paste your text below, choose the desired summary length, and click 'Summarize'.
 """)
 
+# --- File Upload Section ---
+uploaded_file = st.file_uploader("Upload a PDF or Word (.docx) file", type=["pdf", "docx"])
+
+uploaded_text = ""
+if uploaded_file is not None:
+    if uploaded_file.type == "application/pdf":
+        uploaded_text = extract_text_from_pdf(uploaded_file)
+    elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        uploaded_text = extract_text_from_docx(uploaded_file)
+    else:
+        st.warning("Unsupported file type.")
+
 # Text area for user input
-text_input = st.text_area("Paste your text here:", height=250, placeholder="Enter a long piece of text you want to summarize...")
+if uploaded_text:
+    st.info("Text extracted from file. You can still edit below if needed.")
+    text_input = st.text_area("Extracted text:", value=uploaded_text, height=250)
+else:
+    text_input = st.text_area("Paste your text here:", height=250, placeholder="Enter a long piece of text you want to summarize...")
 
 # Slider to select the number of sentences in the summary
 num_sentences_slider = st.slider(
