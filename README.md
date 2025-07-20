@@ -1,5 +1,3 @@
-HIDUP JOKOWI
-
 # ✍️ Simple Text Summarizer
 
 A web-based application built with Python and Streamlit that summarizes long pieces of text using Natural Language Processing (NLP).
