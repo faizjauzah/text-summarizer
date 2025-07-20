@@ -4,13 +4,14 @@ A web-based application built with Python and Streamlit that summarizes long pie
 
 ## 📄 Description
 
-This project provides a simple and interactive user interface to perform extractive text summarization. Users can paste any block of text, select the desired length of the summary in sentences, and get a condensed version of the original text instantly. The app also displays statistics, showing how much the text was reduced.
+This project provides a simple and interactive user interface to perform extractive text summarization. Users can paste any block of text or upload pdf or docx files, select the desired length of the summary in sentences, and get a condensed version of the original text instantly. The app also displays statistics, showing how much the text was reduced.
 
 This is an excellent tool for quickly grasping the main points of a long article, document, or report.
 
 ## ✨ Features
 
 * **Interactive UI:** A clean and simple web interface powered by Streamlit.
+* **PDF/DOCX Files upload:** Users can upload PDF or DOCX files format to be summarized.
 * **Adjustable Summary Length:** Users can control the number of sentences in the final summary using a slider.
 * **Extractive Summarization:** Implements a classic NLP technique to identify and extract the most important sentences from the text.
 * **Usage Statistics:** Provides metrics on the original vs. summary word/sentence counts and the overall percentage of text reduction.
@@ -55,7 +56,7 @@ cd <your-repository-directory>
 Open your terminal and install the necessary Python libraries.
 
 ```
-pip install streamlit nltk
+pip install streamlit nltk python-docx PyPDF2
 ```
 
 ### 4. Download NLTK Data
