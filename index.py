@@ -215,6 +215,3 @@ if st.button("Summarize", type="primary"):
                 st.metric(label="Text Reduction", value=f"{reduction_percentage:.2f}%")
     else:
         st.warning("Please paste some text into the text box above.")
-
-st.markdown("---")
-st.markdown("Built with ❤️ using Python, Streamlit, and NLTK.")
